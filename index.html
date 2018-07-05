@@ -1,60 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-              <meta charset='utf-8'>
-              <meta name="theme-color" content="#00080">
-              <meta name=viewport content="width=device-width, initial-scale=1">
-              <!-- meta viewport tag to control the width and scaling of the browser's viewport. -->
-              <meta name="description" content="Udacity Mws Nanodegree project - 1 ,Restaurant Review App developed by Mvs Kiran "/>
-              <meta name='author' content='Mvskiran'>
-              <meta name=viewport content="width=device-width, initial-scale=1">
-              <!-- Normalize.css for better cross-browser consistency-reset default styles -->
-                <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-                  <link rel="icon" href="img/favicon.png" type="image/png" sizes="16x16">
-                <link rel="stylesheet" href="css/styles.css">
-                <link rel="stylesheet" href="css/responsive.css">
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
-              <title>Restaurant Reviews</title>
-</head>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
 
-<body>
-  <header>
-        <nav role="navigation">                 <!-- html5 role attribute used-->
-          <h1 role="heading"><a href="/" tabindex="-1">Restaurant Reviews</a></h1>
-        </nav>
-  </header>
-  <main id="maincontent" role="main">
-            <section id="map-container" aria-label="Google Maps for Restaurants">
-              <div id="map" role="application"></div>
-            </section>
-            <section id="filter">
-              <div class="filter-options">
-                <h2 tabindex="-1"><strong>Filter Results</strong></h2>
-                <label for="neighborhoods-select" class="hidden">Select Neighborhood</label>
-                <select tabindex="1" id="neighborhoods-select"  name="neighborhoods" onchange="updateRestaurants()" aria-label="filter by neighborhoods">
-                  <option value="all">All Neighborhoods</option>
-                </select>
-                <label for="cuisines-select" class="hidden">Select Cuisine</label>
-                <select tabindex="2" id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="filter by cuisines">
-                  <option value="all">All Cuisines</option>
-                </select>
-              </div>
-              <ul id="restaurants-list" role="group"></ul>
-            </section>
-  </main>
-  <!--modified script tags to below to render html pages first rather than js-->
-  <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
-  <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.2.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.2.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.2.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.2.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.2.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
 
-  <!-- Service Worker Registration -->
-  <script src="js/sw-register.js"></script>
-  <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"></script> -->
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>Welcome</h2>
+      <h1>Firebase Hosting Setup Complete</h1>
+      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    </div>
+    <p id="load">Firebase SDK Loading&hellip;</p>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-  <footer id="footer">
-    Copyright &copy; 2018 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
-  </footer>
-
-</body>
+        try {
+          let app = firebase.app();
+          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script>
+  </body>
 </html>
