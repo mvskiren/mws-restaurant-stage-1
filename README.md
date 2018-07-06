@@ -10,9 +10,9 @@ The web app meets the highest development by achieving accessibility standards. 
 ### Getting Started
 1. Fork and clone the starter repository.
 2. From inside the new directory, launch a local client server using Python from your terminal:
-        Python 2: python -m SimpleHTTPServer 8086
-        Python 3: python3 -m http.server 8086
-3. Visit the site in your browser at http://localhost:8086
+        Python 2: python -m SimpleHTTPServer 8080
+        Python 3: python3 -m http.server 8080
+3. Visit the site in your browser at http://localhost:8080
 
 
 ### Runtime Environment
