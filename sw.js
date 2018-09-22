@@ -1,73 +1,53 @@
-const staticCacheName = 'restaurant-static-041';
+var filesToCache = [
+  '/css/style.min.css',
+  '/css/media.min.css',
+  '/index.html',
+  'manifest.json',
+  '/js/dbhelper.js',
+  '/js/main.js',
+  '/js/register-sw.js',
+  'sw.js',
+  'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css'
+];
 
-// list of assets to cache on install
-// cache each restaurant detail page as well
-self.addEventListener('install', event => {
+var staticCacheName = 'static-cache-v1';
+
+self.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open(staticCacheName)
-      .then(cache => {
-        return cache.addAll([
-          '/index.html',
-          // '/restaurant.html',
-          '/css/styles.css',
-          '/js/dbhelper.js',
-          '/js/register_sw.js',
-          '/js/main.js',
-          '/js/restaurant_info.js',
-          '/data/restaurants.json',
-          '/restaurant.html?id=1',
-          '/restaurant.html?id=2',
-          '/restaurant.html?id=3',
-          '/restaurant.html?id=4',
-          '/restaurant.html?id=5',
-          '/restaurant.html?id=6',
-          '/restaurant.html?id=7',
-          '/restaurant.html?id=8',
-          '/restaurant.html?id=9',
-          '/restaurant.html?id=10',
-          '/img/fixed/offline_img1.png'
-        ]).catch(error => {
-          console.log('Caches open failed: ' + error);
-        });
+      caches.open(staticCacheName)
+      .then(function(cache) {
+          return cache.addAll(filesToCache);
       })
   );
 });
 
-
-// intercept all requests
-// either return cached asset or fetch from network
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', function(event){
   event.respondWith(
-    // Add cache.put to cache images on each fetch
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request).then(fetchResponse => {
-        return caches.open(staticCacheName).then(cache => {
-          cache.put(event.request, fetchResponse.clone());
-          return fetchResponse;
-        });
-      });
-    }).catch(error => {
-      if (event.request.url.includes('.jpg')) {
-        return caches.match('/img/fixed/offline_img1.png');
-      }
-      return new Response('Not connected to the internet', {
-        status: 404,
-        statusText: "Not connected to the internet"
-      });
-    })
+      caches.match(event.request).then(function(response){
+          if(response) return response;
+          
+          return fetch(event.request).then(function(response){
+              return caches.open(staticCacheName).then(function (cache) {
+                  cache.put(event.request.url, response.clone());
+                  return response;
+              })
+          })
+      }).catch(function(error){
+          return new Response('Offline: Page unvisited!');
+      })
   );
 });
 
-// delete old/unused static caches
-self.addEventListener('activate', event => {
+self.addEventListener('activate', function(event) {
+  var cacheWhitelist = [staticCacheName];
+
   event.waitUntil(
-    // caches.delete('-restaurant-static-001')
-    caches.keys().then(cacheNames => {
+    caches.keys().then(function(cacheNames) {
       return Promise.all(
-        cacheNames.filter(cacheName => {
-          return cacheName.startsWith('restaurant-static-') && cacheName !== staticCacheName;
-        }).map(cacheName => {
-          return caches.delete(cacheName);
+        cacheNames.map(function(cacheName) {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
         })
       );
     })
